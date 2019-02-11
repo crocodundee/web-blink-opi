@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OPi control</title>
+    <link rel="stylesheet" type="text/css" href="/style/style.css">
+</head>
+<body>
+    <div id="main">
+    <h1>The light switch</h1>
+    <form action="ledControl">
+        <input class="button" type="submit" name="ledState" value="ON">
+        <input class="button" type="submit" name="ledState" value="OFF">
+    </form>
+    <h1>{{ result }}</h1>
+    </div>
+    <form action="reset">
+        <input class="reset" type="submit" name="reset" value="Reset">
+    </form>
+</body>
+</html>
