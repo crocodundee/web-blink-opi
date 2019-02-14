@@ -9,8 +9,19 @@ env = Environment(loader = file_loader)
 template = env.get_template("template/index.html")
 
 # --- Led config
-import led
-led = Led(port.PA12)
+config_path = "/sys/class/gpio/"
+ledPin = "12"
+
+def ledInit():
+    os.system("echo " + ledPin + " > " + config_path + "export")
+    os.system("echo out > " + config_path + "gpio" + ledPin + "/direction")
+    os.system("echo 0 > " + config_path + "gpio" + ledPin + "/value")
+
+def lightOn():
+    os.system("echo 1 > " + config_path + "gpio" + ledPin + "/value")
+
+def lightOff():
+    os.system("echo 0 > " + config_path + "gpio" + ledPin + "/value")
 
 class OpiServer(object):
     @cherrypy.expose
@@ -21,10 +32,10 @@ class OpiServer(object):
     def ledControl(self, ledState):
         if ledState == 'ON':
             action = "Light is on"
-            led.lightOn()
+            lightOn()
         else:
             action = "Light is off"
-            led.lightOff()
+            lightOff()
         return template.render(result = action)
 
     @cherrypy.expose
@@ -32,6 +43,7 @@ class OpiServer(object):
         return template.render(result="Click the button")
 
 if __name__ == "__main__":
+    ledInit()
     config = {
         '/style':
             {
