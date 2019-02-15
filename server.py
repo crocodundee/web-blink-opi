@@ -1,7 +1,6 @@
 import os, os.path
 import cherrypy
 
-
 # --- Jinja2 config
 from jinja2 import FileSystemLoader, Environment
 file_loader = FileSystemLoader("../webOpi")
@@ -32,18 +31,18 @@ class OpiServer(object):
     def ledControl(self, ledState):
         if ledState == 'ON':
             action = "Light is on"
-            lightOn()
+            #lightOn()
         else:
             action = "Light is off"
-            lightOff()
+            #lightOff()
         return template.render(result = action)
 
     @cherrypy.expose
     def reset(self, reset):
-        return template.render(result="Click the button")
+        return template.render(result = "Click the button")
 
 if __name__ == "__main__":
-    ledInit()
+    #ledInit()
     config = {
         '/style':
             {
